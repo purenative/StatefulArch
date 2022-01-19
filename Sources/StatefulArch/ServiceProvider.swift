@@ -4,7 +4,7 @@ public protocol ServiceProvider {
     
 }
 
-extension ServiceProvider {
+public extension ServiceProvider {
     
     func provide<T>(service: inout T) {
         let resolvedService: T = provideService()
