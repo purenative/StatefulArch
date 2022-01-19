@@ -7,9 +7,9 @@ extension Publisher where Output == String {
         removeDuplicates()
             .sink { _ in
                 
-            } receiveValue: { newValue in
+            } receiveValue: { [weak label] newValue in
                 DispatchQueue.main.async {
-                    label.text = newValue
+                    label?.text = newValue
                 }
             }
     }
