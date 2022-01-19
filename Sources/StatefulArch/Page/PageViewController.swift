@@ -18,7 +18,7 @@ open class PageViewController<Action, State: PageState>: UIViewController {
                    bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
