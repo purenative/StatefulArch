@@ -3,7 +3,7 @@ import Foundation
 @MainActor
 open class PageInterceptor<Action, State: PageState>: BasePageInterceptor {
     
-    weak var state: State?
+    public private(set) weak var state: State?
 
     public required init(state: State,
                          serviceProvider: ServiceProvider) {
@@ -30,7 +30,7 @@ open class PageInterceptor<Action, State: PageState>: BasePageInterceptor {
         }
     }
     
-    func handle(action: Action) async {
+    open func handle(action: Action) async {
         fatalError("Need to override 'handle(action: AssociatedAction)' for InterceptorTemplate")
     }
     

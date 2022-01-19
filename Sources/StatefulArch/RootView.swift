@@ -27,6 +27,10 @@ public struct RootView: UIViewControllerRepresentable {
     
     static let rootViewController = RootViewController()
     
+    public init() {
+        
+    }
+    
     public func makeUIViewController(context: Context) -> RootViewController {
         RootView.rootViewController
     }
