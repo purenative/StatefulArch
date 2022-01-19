@@ -1,6 +1,6 @@
 import SwiftUI
 
-public class LoadablePageState: PageState {
+open class LoadablePageState: PageState {
     
     @Published
     public var loading = false
