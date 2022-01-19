@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-public class PageViewController<Action, State: PageState>: UIViewController {
+open class PageViewController<Action, State: PageState>: UIViewController {
     
     var cancellables = Set<AnyCancellable>()
     
