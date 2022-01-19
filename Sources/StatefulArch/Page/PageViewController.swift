@@ -5,8 +5,8 @@ public class PageViewController<Action, State: PageState>: UIViewController {
     
     var cancellables = Set<AnyCancellable>()
     
-    let state: State
-    let interceptor: PageInterceptor<Action, State>
+    public let state: State
+    public let interceptor: PageInterceptor<Action, State>
     
     public init(state: State,
                 interceptor: PageInterceptor<Action, State>) {
