@@ -1,14 +1,15 @@
-@MainActor
 public final class NavigationService {
     
     private(set) static var moduleAssembler: ModuleAssembler!
     
     private static var layers = [NavigationLayer]()
     
+    @MainActor
     public static func set(serviceProvider: ServiceProvider) {
         self.moduleAssembler = ModuleAssembler(serviceProvider: serviceProvider)
     }
     
+    @MainActor
     public static func push(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
@@ -17,18 +18,21 @@ public final class NavigationService {
         getTopLayer()?.push(module: module)
     }
     
+    @MainActor
     public static func pop(modules: Int = 1) {
         try! throwServiceProviderNotInstalledError()
         
         getTopLayer()?.pop(modules: modules)
     }
     
+    @MainActor
     public static func popToRootModule() {
         try! throwServiceProviderNotInstalledError()
         
         getTopLayer()?.popToRootModule()
     }
     
+    @MainActor
     public static func present(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
@@ -38,6 +42,7 @@ public final class NavigationService {
         layers.append(newLayer)
     }
     
+    @MainActor
     public static func dismiss() {
         try! throwServiceProviderNotInstalledError()
         
@@ -46,6 +51,7 @@ public final class NavigationService {
         layer.dismissModule()
     }
     
+    @MainActor
     public static func setRoot(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
