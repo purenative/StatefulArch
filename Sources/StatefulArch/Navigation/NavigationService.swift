@@ -1,67 +1,72 @@
+import Dispatch
+
 public final class NavigationService {
     
     private(set) static var moduleAssembler: ModuleAssembler!
     
     private static var layers = [NavigationLayer]()
     
-    @MainActor
     public static func set(serviceProvider: ServiceProvider) {
         self.moduleAssembler = ModuleAssembler(serviceProvider: serviceProvider)
     }
     
-    @MainActor
     public static func push(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
         let module = moduleAssembler.assemblyModule(using: builder)
         
-        getTopLayer()?.push(module: module)
+        DispatchQueue.main.async {
+            getTopLayer()?.push(module: module)
+        }
     }
     
-    @MainActor
     public static func pop(modules: Int = 1) {
         try! throwServiceProviderNotInstalledError()
         
-        getTopLayer()?.pop(modules: modules)
+        DispatchQueue.main.async {
+            getTopLayer()?.pop(module: module)
+        }
     }
     
-    @MainActor
     public static func popToRootModule() {
         try! throwServiceProviderNotInstalledError()
         
-        getTopLayer()?.popToRootModule()
+        DispatchQueue.main.async {
+            getTopLayer()?.popToRootModule()
+        }
     }
     
-    @MainActor
     public static func present(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
-        let module = moduleAssembler.assemblyModule(using: builder)
-        getTopLayer()?.present(module: module)
-        let newLayer = NavigationLayer(startModule: module)
-        layers.append(newLayer)
+        DispatchQueue.main.async {
+            let module = moduleAssembler.assemblyModule(using: builder)
+            getTopLayer()?.present(module: module)
+            let newLayer = NavigationLayer(startModule: module)
+            layers.append(newLayer)
+        }
     }
     
-    @MainActor
     public static func dismiss() {
         try! throwServiceProviderNotInstalledError()
         
-        let layer = layers.removeLast()
-        
-        layer.dismissModule()
+        DispatchQueue.main.async {
+            layers.removeLast().dismissModule()
+        }
     }
     
-    @MainActor
     public static func setRoot(using builder: ModuleBuilder) {
         try! throwServiceProviderNotInstalledError()
         
-        let module = moduleAssembler.assemblyModule(using: builder)
-        
-        let newLayer = NavigationLayer(startModule: module)
-        layers.removeAll()
-        layers.append(newLayer)
-        
-        RootView.rootViewController.change(rootModule: module)
+        DispatchQueue.main.async {
+            let module = moduleAssembler.assemblyModule(using: builder)
+            
+            let newLayer = NavigationLayer(startModule: module)
+            layers.removeAll()
+            layers.append(newLayer)
+            
+            RootView.rootViewController.change(rootModule: module)
+        }
     }
     
     private static func getTopLayer() -> NavigationLayer? {
