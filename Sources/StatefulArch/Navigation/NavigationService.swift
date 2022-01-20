@@ -25,7 +25,7 @@ public final class NavigationService {
         try! throwServiceProviderNotInstalledError()
         
         DispatchQueue.main.async {
-            getTopLayer()?.pop(module: module)
+            getTopLayer()?.pop(modules: modules)
         }
     }
     
