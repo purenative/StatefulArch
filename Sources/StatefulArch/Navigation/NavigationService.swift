@@ -1,5 +1,6 @@
 import Dispatch
 
+@MainActor
 public final class NavigationService {
     
     private(set) static var moduleAssembler: ModuleAssembler!
