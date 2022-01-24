@@ -1,9 +1,9 @@
 import UIKit
 
-struct NavigationLayer {
-    weak var startModule: Module?
+public struct NavigationLayer {
+    public weak var startModule: Module?
     
-    var isInvalid: Bool {
+    public var isInvalid: Bool {
         startModule == nil
     }
 }
