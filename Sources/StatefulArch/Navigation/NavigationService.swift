@@ -5,7 +5,7 @@ public final class NavigationService {
     
     private(set) static var moduleAssembler: ModuleAssembler!
     
-    private static var layers = [NavigationLayer]()
+    public private(set) static var layers = [NavigationLayer]()
     
     public static func set(serviceProvider: ServiceProvider) {
         self.moduleAssembler = ModuleAssembler(serviceProvider: serviceProvider)
