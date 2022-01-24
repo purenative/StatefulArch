@@ -7,11 +7,18 @@ open class PageScenario {
     private var cancellables = Set<AnyCancellable>()
     private(set) var started: Bool
     
-    public init(started: Bool = false) {
+    public init(serviceProvider: ServiceProvider,
+                started: Bool = false) {
+        
         self.started = started
         
+        provideServices(with: serviceProvider)
         bind()
         subscribe()
+    }
+    
+    open func provideServices(with serviceProvider: ServiceProvider) {
+        
     }
     
     open func bind() {
