@@ -1,5 +1,6 @@
 import SwiftUI
 
+@available(iOS 14.5, *)
 open class LoadablePageState: PageState {
     
     @Published
@@ -7,6 +8,7 @@ open class LoadablePageState: PageState {
     
 }
 
+@available(iOS 14.5, *)
 public extension LoadablePageState {
     
     func startLoading() {

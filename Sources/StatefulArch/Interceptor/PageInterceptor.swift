@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-open class PageInterceptor<Action, State: PageState>: BasePageInterceptor {
+open class PageInterceptor<Action, State: ObservableObject>: BasePageInterceptor {
     
     public private(set) weak var state: State?
 

@@ -1,3 +1,4 @@
+@available(iOS 14.5, *)
 public extension PageInterceptor where State: LoadablePageState {
     
     func runLoadable(action: (State) async -> Void) async {
