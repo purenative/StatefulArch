@@ -71,14 +71,16 @@ public final class NavigationService {
     }
     
     public static func custom(using builder: ModuleBuilder,
-                              presentOn: @escaping (Module) -> Void) {
+                              presentOn: @escaping (Module, Module) -> Void) {
         try! throwServiceProviderNotInstalledError()
         
         DispatchQueue.main.async {
-            let module = moduleAssembler.assemblyModule(using: builder)
-            presentOn(module)
-            let newLayer = NavigationLayer(startModule: module)
-            layers.append(newLayer)
+            if let topModule = getTopLayer()?.startModule {
+                let module = moduleAssembler.assemblyModule(using: builder)
+                presentOn(module, topModule)
+                let newLayer = NavigationLayer(startModule: module)
+                layers.append(newLayer)
+            }
         }
     }
     
