@@ -70,6 +70,18 @@ public final class NavigationService {
         }
     }
     
+    public static func custom(using builder: ModuleBuilder,
+                              presentOn: @escaping (Module) -> Void) {
+        try! throwServiceProviderNotInstalledError()
+        
+        DispatchQueue.main.async {
+            let module = moduleAssembler.assemblyModule(using: builder)
+            presentOn(module)
+            let newLayer = NavigationLayer(startModule: module)
+            layers.append(newLayer)
+        }
+    }
+    
     private static func getTopLayer() -> NavigationLayer? {
         while let nextLayer = layers.last {
             if nextLayer.isInvalid {
