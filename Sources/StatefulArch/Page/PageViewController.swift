@@ -8,8 +8,8 @@ open class PageViewController<Action, State: ObservableObject>: UIViewController
     public let state: State
     public let interceptor: PageInterceptor<Action, State>
     
-    open init(state: State,
-              interceptor: PageInterceptor<Action, State>) {
+    public init(state: State,
+                interceptor: PageInterceptor<Action, State>) {
         
         self.state = state
         self.interceptor = interceptor
