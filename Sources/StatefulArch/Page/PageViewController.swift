@@ -8,8 +8,8 @@ open class PageViewController<Action, State: ObservableObject>: UIViewController
     public let state: State
     public let interceptor: PageInterceptor<Action, State>
     
-    public init(state: State,
-                interceptor: PageInterceptor<Action, State>) {
+    open init(state: State,
+              interceptor: PageInterceptor<Action, State>) {
         
         self.state = state
         self.interceptor = interceptor
@@ -22,7 +22,7 @@ open class PageViewController<Action, State: ObservableObject>: UIViewController
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         addViews()
@@ -32,25 +32,25 @@ open class PageViewController<Action, State: ObservableObject>: UIViewController
         interceptor.notify(lifeCycleEvent: .didLoad)
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         interceptor.notify(lifeCycleEvent: .willAppear)
     }
     
-    public override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         interceptor.notify(lifeCycleEvent: .didAppear)
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         interceptor.notify(lifeCycleEvent: .willDisappear)
     }
     
-    public override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         interceptor.notify(lifeCycleEvent: .didDisappear)
