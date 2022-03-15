@@ -19,6 +19,29 @@ extension NavigationLayer {
                                                  animated: true)
     }
     
+    func replace(module: Module) {
+        var viewControllers = navigationController?.viewControllers
+        viewControllers?.removeLast()
+        viewControllers?.append(module)
+        navigationController?.setViewControllers(viewControllers ?? [],
+                                                 animated: true)
+    }
+    
+    func replace(count: Int,
+                 using modules: [Module]) {
+        guard var viewControllers = navigationController?.viewControllers else {
+            return
+        }
+        for _ in 0..<count {
+            if !viewControllers.isEmpty {
+                viewControllers.removeLast()
+            }
+        }
+        viewControllers.append(contentsOf: modules)
+        navigationController?.setViewControllers(viewControllers,
+                                                 animated: true)
+    }
+    
     func pop(modules: Int = 1) {
         guard let viewControllers = navigationController?.viewControllers else {
             return

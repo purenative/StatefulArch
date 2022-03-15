@@ -21,6 +21,29 @@ public final class NavigationService {
         }
     }
     
+    public static func replace(using builder: ModuleBuilder) {
+        try! throwServiceProviderNotInstalledError()
+        
+        let module = moduleAssembler.assemblyModule(using: builder)
+        
+        DispatchQueue.main.async {
+            getTopLayer()?.replace(module: module)
+        }
+    }
+    
+    public static func replace(count: Int,
+                               using builders: [ModuleBuilder]) {
+        try! throwServiceProviderNotInstalledError()
+        
+        let modules = builders.map {
+            moduleAssembler.assemblyModule(using: $0)
+        }
+        DispatchQueue.main.async {
+            getTopLayer()?.replace(count: count,
+                                   using: modules)
+        }
+    }
+    
     public static func pop(modules: Int = 1) {
         try! throwServiceProviderNotInstalledError()
         
