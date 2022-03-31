@@ -71,6 +71,24 @@ public final class NavigationService {
         }
     }
     
+    public static func present<T>(customModule: CustomModule<T>) async throws -> T {
+        try! throwServiceProviderNotInstalledError()
+        
+        let module = customModule.asModule()
+        getTopLayer()?.present(module: module)
+        layers.append(NavigationLayer(startModule: module))
+        
+        return try await customModule.waitResult()
+    }
+    
+    public static func present<T>(customModule: CustomModule<T>) {
+        try! throwServiceProviderNotInstalledError()
+        
+        let module = customModule.asModule()
+        getTopLayer()?.present(module: module)
+        layers.append(NavigationLayer(startModule: module))
+    }
+    
     public static func dismiss() {
         try! throwServiceProviderNotInstalledError()
         

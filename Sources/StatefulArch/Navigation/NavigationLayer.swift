@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 public struct NavigationLayer {
     public weak var startModule: Module?
     
