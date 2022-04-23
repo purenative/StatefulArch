@@ -75,4 +75,26 @@ public extension PageScenario {
             .store(in: &cancellables)
     }
     
+    func onChange<T>(_ publisher: Published<T>.Publisher,
+                     call action: @escaping (T) async -> Void) {
+        
+        publisher.receive(on: RunLoop.main)
+            .sink { newValue in
+                Task {
+                    await action(newValue)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func onChange<T>(_ publisher: Published<T>.Publisher,
+                     call action: @escaping (T) -> Void) {
+        
+        publisher.receive(on: RunLoop.main)
+            .sink { newValue in
+                action(newValue)
+            }
+            .store(in: &cancellables)
+    }
+    
 }
