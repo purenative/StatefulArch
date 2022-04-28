@@ -12,7 +12,7 @@ public struct NavigationLayer {
 extension NavigationLayer {
     
     private var navigationController: UINavigationController? {
-        startModule as? UINavigationController ?? (startModule as? UITabBarController)?.selectedViewController ?? UINavigationController
+        startModule as? UINavigationController ?? (startModule as? UITabBarController)?.selectedViewController as? UINavigationController
     }
     
     func push(module: Module) {
