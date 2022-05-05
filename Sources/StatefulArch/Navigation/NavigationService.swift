@@ -5,136 +5,81 @@ public final class NavigationService {
     
     private(set) static var moduleAssembler: ModuleAssembler!
     
-    public private(set) static var layers = [NavigationLayer]()
-    
     public static func set(serviceProvider: ServiceProvider) {
         self.moduleAssembler = ModuleAssembler(serviceProvider: serviceProvider)
     }
     
-    public static func push(using builder: ModuleBuilder) {
-        try! throwServiceProviderNotInstalledError()
+    public static func push(using builder: ModuleBuilder,
+                            animated: Bool = true) {
         
-        let module = moduleAssembler.assemblyModule(using: builder)
-        
-        DispatchQueue.main.async {
-            getTopLayer()?.push(module: module)
-        }
+        use(navigation: PushNavigation(),
+            with: builder,
+            animated: animated)
     }
     
-    public static func replace(using builder: ModuleBuilder) {
-        try! throwServiceProviderNotInstalledError()
+    public static func replace(using builder: ModuleBuilder,
+                               animated: Bool = true) {
         
-        let module = moduleAssembler.assemblyModule(using: builder)
-        
-        DispatchQueue.main.async {
-            getTopLayer()?.replace(module: module)
-        }
+        use(navigation: ReplaceNavigation(),
+            with: builder,
+            animated: animated)
     }
     
-    public static func replace(count: Int,
-                               using builders: [ModuleBuilder]) {
-        try! throwServiceProviderNotInstalledError()
+    public static func pop(modules: Int = 1,
+                           animated: Bool = true) {
         
-        let modules = builders.map {
-            moduleAssembler.assemblyModule(using: $0)
-        }
-        DispatchQueue.main.async {
-            getTopLayer()?.replace(count: count,
-                                   using: modules)
-        }
+        use(navigation: PopNavigation(count: modules),
+            with: nil,
+            animated: animated)
     }
     
-    public static func pop(modules: Int = 1) {
-        try! throwServiceProviderNotInstalledError()
+    public static func popToRootModule(animated: Bool = true) {
         
-        DispatchQueue.main.async {
-            getTopLayer()?.pop(modules: modules)
-        }
+        use(navigation: PopNavigation(count: .max),
+            with: nil,
+            animated: animated)
     }
     
-    public static func popToRootModule() {
-        try! throwServiceProviderNotInstalledError()
+    public static func present(using builder: ModuleBuilder,
+                               animated: Bool = true) {
         
-        DispatchQueue.main.async {
-            getTopLayer()?.popToRootModule()
-        }
+        use(navigation: PresentNavigation(),
+            with: builder,
+            animated: animated)
     }
     
-    public static func present(using builder: ModuleBuilder) {
-        try! throwServiceProviderNotInstalledError()
+    public static func dismiss(animated: Bool = true) {
         
-        DispatchQueue.main.async {
-            let module = moduleAssembler.assemblyModule(using: builder)
-            getTopLayer()?.present(module: module)
-            let newLayer = NavigationLayer(startModule: module)
-            layers.append(newLayer)
-        }
-    }
-    
-    public static func present<T>(customModule: CustomModule<T>) async throws -> T {
-        try! throwServiceProviderNotInstalledError()
-        
-        let module = customModule.asModule()
-        getTopLayer()?.present(module: module)
-        layers.append(NavigationLayer(startModule: module))
-        
-        return try await customModule.waitResult()
-    }
-    
-    public static func present<T>(customModule: CustomModule<T>) {
-        try! throwServiceProviderNotInstalledError()
-        
-        let module = customModule.asModule()
-        getTopLayer()?.present(module: module)
-        layers.append(NavigationLayer(startModule: module))
-    }
-    
-    public static func dismiss() {
-        try! throwServiceProviderNotInstalledError()
-        
-        DispatchQueue.main.async {
-            layers.removeLast().dismissModule()
-        }
+        use(navigation: DismissNavigation(),
+            with: nil,
+            animated: animated)
     }
     
     public static func setRoot(using builder: ModuleBuilder) {
+        
+        use(navigation: RootNavigation(),
+            with: builder,
+            animated: true)
+    }
+    
+    public static func use(navigation: Navigation,
+                           with moduleBuilder: ModuleBuilder?,
+                           animated: Bool) {
+        
         try! throwServiceProviderNotInstalledError()
         
         DispatchQueue.main.async {
-            let module = moduleAssembler.assemblyModule(using: builder)
-            
-            let newLayer = NavigationLayer(startModule: module)
-            layers.removeAll()
-            layers.append(newLayer)
-            
-            RootView.rootViewController.change(rootModule: module)
-        }
-    }
-    
-    public static func custom(using builder: ModuleBuilder,
-                              presentOn: @escaping (Module, Module) -> Void) {
-        try! throwServiceProviderNotInstalledError()
-        
-        DispatchQueue.main.async {
-            if let topModule = getTopLayer()?.startModule {
-                let module = moduleAssembler.assemblyModule(using: builder)
-                presentOn(module, topModule)
-                let newLayer = NavigationLayer(startModule: module)
-                layers.append(newLayer)
-            }
-        }
-    }
-    
-    private static func getTopLayer() -> NavigationLayer? {
-        while let nextLayer = layers.last {
-            if nextLayer.isInvalid {
-                _ = layers.removeLast()
+            if let moduleBuilder = moduleBuilder {
+                let module = moduleAssembler.assemblyModule(using: moduleBuilder)
+                navigation.navigate(module: module,
+                                    in: RootView.rootViewController,
+                                    animated: animated)
             } else {
-                return layers.last
+                navigation.navigate(module: nil,
+                                    in: RootView.rootViewController,
+                                    animated: animated)
             }
         }
-        
-        return nil
     }
     
     private static func throwServiceProviderNotInstalledError() throws {
