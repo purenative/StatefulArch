@@ -77,7 +77,8 @@ final class PresentNavigation: Navigation {
         guard let module = module else {
             return
         }
-        rootViewController.getVisibleViewController().present(module, animated: animated, completion: nil)
+        let visibleController = rootViewController.getVisibleViewController()
+        visibleController.present(module, animated: animated, completion: nil)
     }
     
 }
@@ -85,7 +86,13 @@ final class PresentNavigation: Navigation {
 final class DismissNavigation: Navigation {
  
     func navigate(module: Module?, in rootViewController: RootViewController, animated: Bool) {
-        rootViewController.getVisibleViewController().dismiss(animated: animated, completion: nil)
+        let visibleController = rootViewController.getVisibleViewController()
+        
+        rootViewController.viewWillAppear(animated)
+        
+        visibleController.dismiss(animated: animated) {
+            rootViewController.viewDidAppear(animated)
+        }
     }
     
 }
