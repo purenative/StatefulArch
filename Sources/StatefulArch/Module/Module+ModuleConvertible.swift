@@ -22,8 +22,20 @@ extension UIViewController: Module, ModuleConvertible {
 
 public extension PageView where Interceptor: BasePageInterceptor {
     
-    func asModule() -> Module {
-        PageViewHostingController(rootView: self)
+    func asModule(modalTransitionStyle: UIModalTransitionStyle = .coverVertical,
+                  modalPresentationStyle: UIModalPresentationStyle = .overFullScreen,
+                  statusBarStyle: UIStatusBarStyle = .default,
+                  hidesBottomBarWhenPushed: Bool = false) -> Module {
+        
+        let controller = PageViewHostingController(rootView: self)
+        
+        controller.modalTransitionStyle = modalTransitionStyle
+        controller.modalPresentationStyle = modalPresentationStyle
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.statusBarStyle = statusBarStyle
+        controller.hidesBottomBarWhenPushed = hidesBottomBarWhenPushed
+        
+        return controller
     }
     
 }

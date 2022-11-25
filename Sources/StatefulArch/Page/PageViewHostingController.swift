@@ -5,6 +5,16 @@ public class PageViewHostingController<Page: PageView, Interceptor: BasePageInte
     
     private weak var interceptor: Interceptor?
     
+    var statusBarStyle: UIStatusBarStyle = .default {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        statusBarStyle
+    }
+    
     override init(rootView: Page) {
         super.init(rootView: rootView)
         

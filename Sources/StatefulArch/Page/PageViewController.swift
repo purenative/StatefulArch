@@ -8,6 +8,16 @@ open class PageViewController<Action, State: ObservableObject>: UIViewController
     public let state: State
     public let interceptor: PageInterceptor<Action, State>
     
+    var statusBarStyle: UIStatusBarStyle = .default {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        statusBarStyle
+    }
+    
     public init(state: State,
                 interceptor: PageInterceptor<Action, State>) {
         
