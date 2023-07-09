@@ -1,6 +1,16 @@
 # StatefulArch
 
  This package contains a set of useful entities to develop scalable iOS applications using either SwiftUI or UIKit along with Combine.
+ 
+## Installation
+
+You can install this package using [Swift Package Manager](https://www.swift.org/package-manager/) by adding the following line to the `dependencies` in your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/purenative/StatefulArch.git", .upToNextMajor(from: "1.0.0"))
+]
+```
 
 ## Architecture Overview
 
