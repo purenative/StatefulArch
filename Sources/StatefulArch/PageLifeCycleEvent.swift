@@ -1,3 +1,14 @@
+//
+// PageLifeCycleEvent.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
+import Foundation
+
 public enum PageLifeCycleEvent {
     
     case didLoad

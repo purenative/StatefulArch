@@ -1,3 +1,13 @@
+//
+// Navigation+Default.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
+import Foundation
 import UIKit
 
 public final class RootNavigation: Navigation {

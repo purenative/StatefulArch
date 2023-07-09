@@ -1,3 +1,14 @@
+//
+// ModuleAssembler.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
+import Foundation
+
 @MainActor
 public struct ModuleAssembler {
     

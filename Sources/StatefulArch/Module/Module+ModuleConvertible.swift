@@ -1,3 +1,13 @@
+//
+// Module+ModuleConvertible.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
+import Foundation
 import UIKit
 import SwiftUI
 import Combine

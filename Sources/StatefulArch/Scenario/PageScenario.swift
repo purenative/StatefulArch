@@ -1,5 +1,14 @@
-import Combine
+//
+// PageScenario.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
 import Foundation
+import Combine
 
 @MainActor
 open class PageScenario {
