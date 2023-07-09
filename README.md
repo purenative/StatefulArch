@@ -4,17 +4,15 @@
  
 ## Requirements
 
-- Swift 5.5 or higher
-- iOS 14.0 or higher
+- Swift 5.5 or newer
+- iOS 14.0 or newer
  
 ## Installation
 
 You can install this package using [Swift Package Manager](https://www.swift.org/package-manager/) by adding the following line to the `dependencies` in your `Package.swift` file:
 
 ```swift
-dependencies: [
-    .package(url: "https://github.com/purenative/StatefulArch.git", .upToNextMajor(from: "1.0.0"))
-]
+.package(url: "https://github.com/purenative/StatefulArch.git", .upToNextMajor(from: "1.0.0"))
 ```
 
 ## Architecture Overview
@@ -31,11 +29,15 @@ View is responsible for user interface and it doesn't contain any business logic
 
 Interceptor processes user actions received from View and updates State. Interceptor may contain input data validations but it's not responsible for business logic directly. 
 
-> There is another entity in this architecture called Scenario which is responsible for business logic. Scenario isn't displayed on the diagram due to business logic optionality - some screens may not contain business logic such as screens which only contain static content.
+> There is another entity in this architecture called Scenario which is responsible for business logic. Scenario isn't displayed on the diagram due to business logic optionality - some screens may not contain business logic such as screens which only consist of static content.
 
 ### State
 
 This entity stores screen's state and determines View's behavior.
+
+## Contributing
+
+Don't forget to open an [issue](https://github.com/purenative/StatefulArch/issues) if you found a bug or have a question. Feel free to open a [pull request](https://github.com/purenative/StatefulArch/pulls) if you fixed an existing feature or implemented your own one.
 
 ## License
 
