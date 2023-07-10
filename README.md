@@ -37,7 +37,7 @@ This entity stores screen's state and determines View's behavior.
 
 ## Contributing
 
-Don't forget to open an [issue](https://github.com/purenative/StatefulArch/issues) if you found a bug or have a question. Feel free to open a [pull request](https://github.com/purenative/StatefulArch/pulls) if you fixed an existing feature or implemented a new one.
+Don't forget to open an [issue](https://github.com/purenative/StatefulArch/issues) if you found a bug or have a question. Feel free to fork this repository and open a [pull request](https://github.com/purenative/StatefulArch/pulls) if you fixed an existing feature or implemented a new one.
 
 ## License
 
