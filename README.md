@@ -17,7 +17,7 @@ You can install this package using [Swift Package Manager](https://www.swift.org
 
 ## Architecture Overview
 
-StatetefulArch proposes to split screens into independent modules which of them consists of three main components - View, Interceptor and State.
+StatetefulArch proposes to split screens into independent parts called modules which of them consists of three main components - View, Interceptor and State.
 
 ![architecture diagram](Docs/Images/ArchitectureDiagram.png)
 
