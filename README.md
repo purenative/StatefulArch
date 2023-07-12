@@ -29,7 +29,7 @@ View is responsible for user interface and it doesn't contain any business logic
 
 Interceptor processes user actions received from View and updates State. Interceptor may contain input data validations but it's not responsible for business logic directly. 
 
-> There is another entity in this architecture called Scenario which is responsible for business logic. Scenario isn't displayed on the diagram due to business logic optionality - some screens may not contain business logic such as screens which only consist of static content.
+*There is another entity in this architecture called Scenario which is responsible for business logic. Scenario isn't displayed on the diagram due to business logic optionality - some screens may not contain business logic such as screens which only consist of static content.*
 
 ### State
 
@@ -37,8 +37,8 @@ This entity stores screen's state and determines View's behavior.
 
 ## Contributing
 
-Don't forget to open an [issue](https://github.com/purenative/StatefulArch/issues) if you found a bug or have a question. Feel free to fork this repository and open a [pull request](https://github.com/purenative/StatefulArch/pulls) if you fixed an existing feature or implemented a new one.
+Don't forget to open an issue if you found a bug or have a question. Feel free to fork this repository and open a pull request if you fixed an existing feature or implemented a new one.
 
 ## License
 
-StatefulArch is released under the [MIT license](LICENSE).
+StatefulArch is released under the MIT license. See LICENSE for details.
