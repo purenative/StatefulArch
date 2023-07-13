@@ -10,10 +10,10 @@
 import Foundation
 import SwiftUI
 
-public class PageViewHostingController<Page: PageView, Interceptor: BasePageInterceptor>:
-    UIHostingController<Page> where Interceptor == Page.Interceptor {
+public class PageViewHostingController<Page: PageView>:
+    UIHostingController<Page> {
     
-    private weak var interceptor: Interceptor?
+    private weak var interceptor: Page.Interceptor?
     
     var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
@@ -31,7 +31,8 @@ public class PageViewHostingController<Page: PageView, Interceptor: BasePageInte
         interceptor = rootView.interceptor
     }
     
-    @objc required dynamic init?(coder aDecoder: NSCoder) {
+    @objc
+    required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

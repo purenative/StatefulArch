@@ -21,6 +21,18 @@ public final class RootNavigation: Navigation {
     
 }
 
+public extension NavigationService {
+    
+    static func setRoot(using builder: ModuleBuilder) {
+        use(
+            navigation: RootNavigation(),
+            with: builder,
+            animated: true
+        )
+    }
+    
+}
+
 public final class PushNavigation: Navigation {
     
     public func navigate(module: Module?, in rootViewController: RootViewController, animated: Bool) {
@@ -28,6 +40,18 @@ public final class PushNavigation: Navigation {
             return
         }
         getVisibleNavigationController(in: rootViewController)?.pushViewController(module, animated: animated)
+    }
+    
+}
+
+public extension NavigationService {
+    
+    static func push(using builder: ModuleBuilder, animated: Bool = true) {
+        use(
+            navigation: PushNavigation(),
+            with: builder,
+            animated: animated
+        )
     }
     
 }
@@ -64,6 +88,26 @@ public final class PopNavigation: Navigation {
     
 }
 
+public extension NavigationService {
+    
+    static func pop(modules: Int = 1, animated: Bool = true) {
+        use(
+            navigation: PopNavigation(count: modules),
+            with: nil,
+            animated: animated
+        )
+    }
+    
+    static func popToRootModule(animated: Bool = true) {
+        use(
+            navigation: PopNavigation(count: .max),
+            with: nil,
+            animated: animated
+        )
+    }
+    
+}
+
 final class ReplaceNavigation: Navigation {
     
     func navigate(module: Module?, in rootViewController: RootViewController, animated: Bool) {
@@ -81,6 +125,18 @@ final class ReplaceNavigation: Navigation {
     
 }
 
+public extension NavigationService {
+    
+    static func replace(using builder: ModuleBuilder, animated: Bool = true) {
+        use(
+            navigation: ReplaceNavigation(),
+            with: builder,
+            animated: animated
+        )
+    }
+    
+}
+
 final class PresentNavigation: Navigation {
     
     func navigate(module: Module?, in rootViewController: RootViewController, animated: Bool) {
@@ -89,6 +145,18 @@ final class PresentNavigation: Navigation {
         }
         let visibleController = rootViewController.getVisibleViewController()
         visibleController.present(module, animated: animated, completion: nil)
+    }
+    
+}
+
+public extension NavigationService {
+    
+    static func present(using builder: ModuleBuilder, animated: Bool = true) {
+        use(
+            navigation: PresentNavigation(),
+            with: builder,
+            animated: animated
+        )
     }
     
 }
@@ -103,6 +171,18 @@ final class DismissNavigation: Navigation {
         visibleController.dismiss(animated: animated) {
             rootViewController.viewDidAppear(animated)
         }
+    }
+    
+}
+
+public extension NavigationService {
+    
+    static func dismiss(animated: Bool = true) {
+        use(
+            navigation: DismissNavigation(),
+            with: nil,
+            animated: animated
+        )
     }
     
 }

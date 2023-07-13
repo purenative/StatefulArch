@@ -1,5 +1,5 @@
 //
-// RootView.swift
+// RootViewController.swift
 // StatefulArch
 //
 // MIT License
@@ -9,11 +9,10 @@
 
 import Foundation
 import UIKit
-import SwiftUI
 
 public class RootViewController: UIViewController {
     
-    private var currentRootModule: Module!
+    private var currentRootModule: Module?
     
     func change(rootModule: Module) {
         currentRootModule?.view?.removeFromSuperview()
@@ -55,55 +54,34 @@ public class RootViewController: UIViewController {
         visibleController(from: self)
     }
     
-    private func visibleController(from controller: UIViewController) -> UIViewController {
-        
-        if let navigationController = controller as? UINavigationController {
-            
-            return visibleController(from: navigationController.visibleViewController!)
+}
 
-        } else if let tabBarController = controller as? UITabBarController {
+private extension RootViewController {
+    
+    func visibleController(from controller: UIViewController) -> UIViewController {
+        
+        switch controller {
+        case let navigationController as UINavigationController:
+            return visibleController(from: navigationController.visibleViewController!)
             
+        case let tabBarController as UITabBarController:
             return visibleController(from: tabBarController.selectedViewController!)
             
-        } else {
-
+        default:
             if let presentedViewController = controller.presentedViewController {
-
                 return visibleController(from: presentedViewController)
-
-            } else if !controller.children.isEmpty {
-                
-                if let tabBarController = controller.children.compactMap({ $0 as? UITabBarController }).first {
-                    return visibleController(from: tabBarController.selectedViewController!)
-                }
-                
-                if let navigationController = controller.children.compactMap({ $0 as? UINavigationController }).first {
-                    return visibleController(from: navigationController.visibleViewController!)
-                }
-                
+            }
+            
+            if let tabBarController = controller.children.first(where: { $0 is UITabBarController }) {
+                return visibleController(from: tabBarController)
+            }
+            
+            if let navigationController = controller.children.first(where: { $0 is UINavigationController }) {
+                return visibleController(from: navigationController)
             }
             
             return controller
         }
-        
-    }
-
-}
-
-public struct RootView: UIViewControllerRepresentable {
-    
-    static let rootViewController = RootViewController()
-    
-    public init() {
-        
-    }
-    
-    public func makeUIViewController(context: Context) -> RootViewController {
-        RootView.rootViewController
-    }
-    
-    public func updateUIViewController(_ rootViewController: RootViewController,
-                                       context: Context) {
         
     }
     

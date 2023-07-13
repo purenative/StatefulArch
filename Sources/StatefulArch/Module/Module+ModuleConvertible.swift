@@ -10,42 +10,30 @@
 import Foundation
 import UIKit
 import SwiftUI
-import Combine
 
-public protocol Module: UIViewController {
-
-}
+public protocol Module: UIViewController { }
 
 public protocol ModuleConvertible {
     
-    func asModule() -> Module
+    func asModule(withOptions moduleOptions: ModuleOptions) -> Module
+    
+}
+
+public extension ModuleConvertible {
+    
+    func asModule() -> Module {
+        asModule(withOptions: .default)
+    }
     
 }
 
 extension UIViewController: Module, ModuleConvertible {
     
-    public func asModule() -> Module {
-        self
-    }
-    
-}
-
-public extension PageView where Interceptor: BasePageInterceptor {
-    
-    func asModule(modalTransitionStyle: UIModalTransitionStyle = .coverVertical,
-                  modalPresentationStyle: UIModalPresentationStyle = .overFullScreen,
-                  statusBarStyle: UIStatusBarStyle = .default,
-                  hidesBottomBarWhenPushed: Bool = false) -> Module {
-        
-        let controller = PageViewHostingController(rootView: self)
-        
-        controller.modalTransitionStyle = modalTransitionStyle
-        controller.modalPresentationStyle = modalPresentationStyle
-        controller.modalPresentationCapturesStatusBarAppearance = true
-        controller.statusBarStyle = statusBarStyle
-        controller.hidesBottomBarWhenPushed = hidesBottomBarWhenPushed
-        
-        return controller
+    public func asModule(withOptions moduleOptions: ModuleOptions) -> Module {
+        self.modalTransitionStyle = moduleOptions.modalTransitionStyle
+        self.modalPresentationStyle = moduleOptions.modalPresentationStyle
+        self.hidesBottomBarWhenPushed = moduleOptions.hidesBottomBarWhenPushed
+        return self
     }
     
 }
