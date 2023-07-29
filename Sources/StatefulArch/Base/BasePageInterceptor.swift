@@ -1,3 +1,12 @@
+//
+// BasePageInterceptor.swift
+// StatefulArch
+//
+// MIT License
+//
+// Copyright (c) 2022 Pure Native
+//
+
 import Foundation
 
 open class BasePageInterceptor<Action, State: PageState, LaunchInfo>: PageInterceptor {
